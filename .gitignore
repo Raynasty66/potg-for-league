@@ -1,0 +1,14 @@
+# Only the sources ship; game recordings, Riot assets (fonts, music, models) and settings.json (the Riot key) stay local
+*
+!*/
+/build/
+!/.gitignore
+!/README.md
+!/CMakeLists.txt
+!/main.cpp
+!/potg_engine.hpp
+!/potg_video.cpp
+!/potg_video.hpp
+!/pengu/potg/index.js
+!/intro/auto_intro.py
+!/third_party/*.h
