@@ -17,8 +17,7 @@ FetchContent_MakeAvailable(cpr)
 # 2. Automatically downloads nlohmann/json
 FetchContent_Declare(
     json
-    GIT_REPOSITORY https://github.com/nlohmann/json.git
-    GIT_TAG v3.11.3
+    URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
 )
 FetchContent_MakeAvailable(json)
 
