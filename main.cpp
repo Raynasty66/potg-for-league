@@ -381,6 +381,15 @@ int main() {
         reply(res, {{"ok", !saved.empty()}});
     });
 
+    // Replies {"songs": [{key, name}]} for the tab's song list
+    server.Get("/api/music", [](const httplib::Request& req, httplib::Response& res) {
+        json list = json::array();
+        for (const auto& [key, music] : load_music()){
+            list.push_back({{"key",key},{"name",music.name}});
+
+        }
+        reply(res,{{"songs",list}});
+    });
     server.listen("127.0.0.1", PORT);
     return 0;
-        }
+        }   

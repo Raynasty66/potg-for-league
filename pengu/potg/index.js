@@ -1,8 +1,7 @@
 // Play of the Game tab for the League client (Pengu Loader plugin). Lists your recent games from the client, asks the
 // POTG helper (main.exe, http://127.0.0.1:47811) for each game's best plays and how they scored, and has it watch or save one
 const HELPER = "http://127.0.0.1:47811";
-const SONGS = [["", "Random song"], ["legends", "Legends Never Die"], ["coming_alive", "Coming Alive"]];
-
+let SONGS = [["", "Random song"]];
 const state = { games: [], champions: {}, queues: {}, spells: {}, items: {}, maps: [], selected: null, plays: {}, song: "", status: null, helperUp: false, open: false,
     older: [], olderFrom: 0, noOlder: false }; // older: games past the client's latest 20; olderFrom: how far into Riot's list we are
 
@@ -204,6 +203,9 @@ async function poll() {
             try {
                 state.status = await helper("/api/status");
                 state.helperUp = true;
+                if (SONGS.length == 1){
+                    SONGS = [["", "Random song"], ...(await helper("/api/music")).songs.map((s) => [s.key,s.name])];
+                }
             } catch {
                 state.helperUp = false;
                 state.status = null;

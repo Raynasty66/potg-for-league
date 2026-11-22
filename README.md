@@ -15,7 +15,7 @@ You need Windows, League in borderless or windowed mode, [Pengu Loader](https://
 1. Turn on the replay API: add `EnableReplayApi=1` under `[General]` in `C:\Riot Games\League of Legends\Config\game.cfg`.
 2. Add Riot's fonts and songs (not included):
    - `intro/fonts/`: `BeaufortForLOL-Bold.otf`, `BeaufortForLOL-Heavy.otf`, `Spiegel-SemiBold.otf`
-   - `intro/music/`: `legends_never_die.wav`, `coming_alive.wav`
+   - `intro/music/`: `legends_never_die.wav`, `coming_alive.wav`, `awaken.wav`
 3. Build:
    ```
    cmake -S . -B build

@@ -1,0 +1,10 @@
+  [
+    {"key": "legends", "name": "Legends Never Die", "file": "legends_never_die.wav",
+     "parts": [[41.525, 48.382], [51.811, 60.6]], "skip": 27.459, "skip_at": 39.56, "crossfade": 1.8},
+
+    {"key": "coming_alive", "name": "Coming Alive", "file": "coming_alive.wav",
+     "parts": [[45.12, 62.2]], "intro_from": 39.5, "fade": true},
+
+     {"key": "awaken", "name": "Awaken", "file": "awaken.wav",
+     "parts": [[54.988,66.323]], "intro_from": 50.2, "fade": true}
+  ]

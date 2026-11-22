@@ -27,7 +27,7 @@ struct SongSpan {
 
 // A song cut around the moment the intro cuts to the replay. The intro plays the song up to the first span of parts; the
 // spans then play back to back under the replay. Every time is seconds into the song file. The fields, with Legends
-// Never Die's values (pick_music has both songs):
+// Never Die's values (pick_music has all songs):
 //
 //   field       type              example                                 meaning
 //   file        text              "legends_never_die.wav"                 the song, in intro/music
@@ -44,6 +44,7 @@ struct SongSpan {
 //   crossfade   seconds           1.8                                     how long the earlier pass fades into the later one
 struct Music {
     std::string file;
+    std::string name;
     std::vector<SongSpan> parts;
     double intro_from = -1;
     double intro_to = -1;
@@ -59,7 +60,8 @@ struct Music {
 };
 // The song with that name, or a random one when the name is empty
 Music pick_music(const std::string& name);
-
+//Load the music
+std::vector<std::pair<std::string, Music>> load_music();
 // Where progress messages go ("Rendering the Gwen intro in Blender..."); the console if never set
 void set_potg_status(std::function<void(const std::string&)> sink);
 

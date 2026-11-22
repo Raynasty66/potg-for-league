@@ -1092,33 +1092,33 @@ public:
 
 void set_potg_status(std::function<void(const std::string&)> sink) { status_sink = std::move(sink); }
 
+std::vector<std::pair<std::string, Music>> load_music() {
+    // Load songs from songs.json
+    std::vector<std::pair<std::string, Music>> songs;
+    json list = json::parse(std::ifstream(ASSETS / "music" / "songs.json"));
+    for (const json&s : list){
+        Music m;
+        m.file = s.value("file","");
+        m.fade = s.value("fade",false);
+        m.intro_from = s.value("intro_from",-1.0);
+        m.name = s.value("name","");
+        m.skip = s.value("skip",-1.0);
+        m.skip_at = s.value("skip_at",-1.0);
+        m.crossfade = s.value("crossfade",-1.0);
+        for (const json&part : s.value("parts",json::array())){
+            m.parts.push_back({part[0],part[1]});
+        }
+
+        songs.push_back({s.value("key",""),m});
+    }
+    return songs;   
+}
+
 // The songs to pick from; what each Music field means is in potg_video.hpp
 Music pick_music(const std::string& name) {
-    Music legends;
-    legends.file = "legends_never_die.wav";
-    legends.parts = {
-        //from    to
-        {41.525, 48.382}, // the chorus, starting on the cut: its opening phrase twice (each 3.4286 s, two bars at 140 BPM)
-        {51.811, 60.6},   // skips the phrase's third repeat, then runs to the song's dead stop at 1:00.4 plus its ring-out
-    };
-    // The song's opening plays three times before the chorus. The intro starts in the soft first pass, then jumps
-    // 27.459 s ahead (exactly two passes) to the same spot of the third, which runs into the chorus
-    legends.skip = 27.459;
-    legends.skip_at = 39.56; // the crossfade into the third pass is done by 0:39.56, two seconds before the cut
-    legends.crossfade = 1.8; // seconds the first pass fades into the third
-    // intro_from and intro_to stay -1: the intro's music simply runs up to the first part. fade stays false: it ends on
-    // the song's own dead stop
 
-    Music coming_alive;
-    coming_alive.file = "coming_alive.wav";
-    coming_alive.parts = {
-        //from   to
-        {45.12, 62.2}, // from the drop after the break, which lands on the cut, for 17 seconds under the replay
-    };
-    coming_alive.intro_from = 39.5; // the intro starts on the hit at 0:39.5
-    coming_alive.fade = true;       // the song has no clean stop here, so it fades out
 
-    static const std::vector<std::pair<std::string, Music>> songs = {{"legends", legends}, {"coming_alive", coming_alive}};
+    const std::vector<std::pair<std::string, Music>> songs = load_music();
     for (const auto& [key, music] : songs)
         if (key == name) return music;
     if (!name.empty()) throw std::runtime_error("no song called " + name);

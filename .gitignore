@@ -11,4 +11,5 @@
 !/potg_video.hpp
 !/pengu/potg/index.js
 !/intro/auto_intro.py
+!/intro/music/songs.json
 !/third_party/*.h
